@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, navigate, graphql, useStaticQuery } from 'gatsby'
 import { motion, AnimatePresence } from "framer-motion"
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
@@ -7,6 +7,7 @@ import map from '../images/gnomonic-map.png'
 import lines from '../images/gnomonic-lines.png'
 import bg from '../images/bg-texture.png'
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import leavesSound from '../images/dry-leaves.wav';
 
 const data = [
     {
@@ -63,12 +64,12 @@ const data = [
     },
 ];
 
-const duration = 0.5
-
+const duration = 0.5;
+const distance = 50;
 const variants = {
     initial: {
         opacity: 0,
-        x: 200,
+        x: distance,
     },
     enter: {
         opacity: 1,
@@ -81,13 +82,13 @@ const variants = {
     },
     exit: {
         opacity: 0,
-        x: -200,
+        x: -distance * 4,
         transition: { duration: duration },
     },
 }
 
 
-const MAP_SIZE = '900px';
+const MAP_SIZE = 700;
 
 const theme = {
     accentColor: 'tomato',
@@ -105,8 +106,6 @@ const PageContainer = styled(motion.main)`
     bottom: 1em;
     pointer-events: none;
     opacity: 1;
-    
-
 `
 
 const Container = styled(motion.div)`
@@ -119,6 +118,7 @@ const MapContainer = styled(motion.div)`
     height: 100vh;
     background: url(${({ bg }) => bg}) no-repeat center;
     background-size: cover;
+    mix-blend-mode: screen;
     .lines {
         object-fit: cover;
         display: inline-block;
@@ -126,26 +126,26 @@ const MapContainer = styled(motion.div)`
         top: 0; right: 0; bottom: 0; left: 0;
         width: 100%;
         height: 100%;
+        mix-blend-mode: multiply;
+        pointer-events: none;
     }
-    
-    `
+`
 
 const Map = styled.div`
     position: absolute;
     top: 50%; right: 0; bottom: 0; left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(100%, ${MAP_SIZE});
-    padding-bottom: min(100%, ${MAP_SIZE});
-    
+    transform: translate(-50%, -50%) ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
+    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(3px)'};
+    width: min(100%, ${MAP_SIZE}px);
+    padding-bottom: min(100%, ${MAP_SIZE}px);
+    transition: .3s ease-out;
     .map {
+        transform-origin: center;
         width: 100%;
         position: absolute;
         top: 0; right: 0; bottom: 0; left: 0;
     } 
 `
-
-
-
 
 const Points = styled.div`
     position: absolute;
@@ -154,8 +154,8 @@ const Points = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    max-width: ${MAP_SIZE};
-    padding-bottom: min(100%, ${MAP_SIZE});
+    max-width: ${MAP_SIZE}px;
+    padding-bottom: min(100%, ${MAP_SIZE}px);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -167,10 +167,16 @@ const Point = styled.button`
     width: 50px;
     height: 50px;
     border-radius 50%;
-    background: ${({ theme }) => theme.accentColor};
+    background: ${({ isCurrent }) => isCurrent ? 'yellow' : 'whitesmoke'};
+    transform: ${({ isCurrent }) => isCurrent ? 'scale(1.3)' : 'scale(1)'};
+    border: .5em solid ${({ theme }) => theme.accentColor};
     position: absolute;
     top: ${({ y }) => y}%;
     left: ${({ x }) => x}%;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.4);
+    transition: .2s ease-out;
     `
 
 const Content = styled.div`
@@ -178,7 +184,6 @@ const Content = styled.div`
     z-index: 2;
     top: 0; right: 0; bottom: 0; left: 0;
     ${({ isVisible }) => {
-        console.log({ isVisible });
         return !isVisible && `
             pointer-events: none;
             opacity: 0;
@@ -209,19 +214,28 @@ const GlobalStyle = createGlobalStyle`
 export default function Layout({ children, location }) {
 
 
+    const [currentPage, setCurrentPage] = useState(false);
 
     useEffect(() => {
         window.addEventListener('keydown', (e) => {
-            console.log(e.code)
             const dataForKeyPress = data.find(d => d.key === e.code)
             return dataForKeyPress && navigate(dataForKeyPress.path);
         })
     }, []);
 
+    const audio = new Audio(leavesSound);
+    audio.volume = 0.1;
+    useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
+        audio.play();
+    }, [location.pathname])
+
+
 
     return (
         <ThemeProvider theme={theme}>
+
             <GlobalStyle />
+
             <Container>
                 <Content isVisible={location.pathname !== '/'}>
                     <AnimatePresence>
@@ -236,26 +250,31 @@ export default function Layout({ children, location }) {
                             {children}
                         </PageContainer>
                     </AnimatePresence>
-
                 </Content>
 
 
                 <MapContainer bg={bg}>
+
                     <img
                         className="lines"
                         src={lines}
                         alt=""
                     />
-                    <Map>
+
+                    <Map isHome={location.pathname === '/'}>
                         <Points>
-                            {data.map(d => {
+                            {data.map((d, i) => {
                                 return d.title && (
-                                    <Link key={d.title} to={d.path}>
+                                    <Link
+                                        key={d.title}
+                                        to={d.path}
+                                    >
                                         <Point
                                             x={d.x}
                                             y={d.y}
+                                            isCurrent={location.pathname === d.path}
                                         >
-                                            {d.title}
+                                            {i + 1}
                                         </Point>
                                     </Link>
                                 )
@@ -263,6 +282,7 @@ export default function Layout({ children, location }) {
                         </Points>
                         <MapImage />
                     </Map>
+
                 </MapContainer>
             </Container >
         </ThemeProvider>
@@ -273,7 +293,7 @@ const MapImage = () => {
 
     const data = useStaticQuery(graphql`
         query {
-            file(relativePath: {eq: "gnomonic-map.png"}) {
+            file(relativePath: {eq: "gnomonic-map4.png"}) {
                 childImageSharp {
                     gatsbyImageData(
                         width: 1700
@@ -293,3 +313,28 @@ const MapImage = () => {
         alt="Gnomonic projection of the Arctic"
     />
 }
+
+// const BgImage = () => {
+
+//     const data = useStaticQuery(graphql`
+//         query {
+//             file(relativePath: {eq: "bg-texture.png"}) {
+//                 childImageSharp {
+//                     gatsbyImageData(
+//                         width: 1700
+//                         placeholder: BLURRED
+//                         formats: [AUTO, WEBP, AVIF]
+//                     )
+//                 }
+//             }
+//         }
+//     `);
+
+//     const image = getImage(data.file)
+
+//     return <GatsbyImage
+//         className="map"
+//         image={image}
+//         alt="Gnomonic projection of the Arctic"
+//     />
+// }
