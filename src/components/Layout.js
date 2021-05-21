@@ -223,9 +223,9 @@ export default function Layout({ children, location }) {
         })
     }, []);
 
-    const audio = new Audio(leavesSound);
-    audio.volume = 0.1;
     useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
+        const audio = new Audio(leavesSound);
+        audio.volume = 0.1;
         audio.play();
     }, [location.pathname])
 
