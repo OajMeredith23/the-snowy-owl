@@ -87,13 +87,12 @@ const variants = {
     },
 }
 
-
 const MAP_SIZE = 700;
 
 const theme = {
     accentColor: 'tomato',
     borderRadius: '1em',
-    foreground: 'whitesmoke',
+    foreground: 'white',
     middleground: '#f9f9f9f9',
     background: 'grey'
 }
@@ -111,12 +110,12 @@ const PageContainer = styled(motion.main)`
 const Container = styled(motion.div)`
 `
 
-
 const MapContainer = styled(motion.div)`
     position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;
     height: 100vh;
     background: url(${({ bg }) => bg}) no-repeat center;
+    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(12px)'};
     background-size: cover;
     mix-blend-mode: screen;
     .lines {
@@ -135,10 +134,9 @@ const Map = styled.div`
     position: absolute;
     top: 50%; right: 0; bottom: 0; left: 50%;
     transform: translate(-50%, -50%) ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
-    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(3px)'};
     width: min(100%, ${MAP_SIZE}px);
     padding-bottom: min(100%, ${MAP_SIZE}px);
-    transition: .3s ease-out;
+    transition: .6s ease-in-out;
     .map {
         transform-origin: center;
         width: 100%;
@@ -176,7 +174,7 @@ const Point = styled.button`
     font-weight: 700;
     cursor: pointer;
     box-shadow: 1px 2px 3px rgba(0,0,0,0.4);
-    transition: .2s ease-out;
+    transition: .2s ease-in-out;
     `
 
 const Content = styled.div`
@@ -209,25 +207,39 @@ const GlobalStyle = createGlobalStyle`
         border: none;
         outline: none;
     }
+
+    p, h1, h2 {
+        line-height: 1.5em;
+    }
 `
 
 export default function Layout({ children, location }) {
 
-
     const [currentPage, setCurrentPage] = useState(false);
 
+    function playSound() {
+        const audio = new Audio(leavesSound);
+        if (audio) {
+            audio.volume = 0.1;
+            audio.play();
+        };
+
+    }
     useEffect(() => {
         window.addEventListener('keydown', (e) => {
-            const dataForKeyPress = data.find(d => d.key === e.code)
+            const dataForKeyPress = data.find(d => d.key === e.code);
+            // playSound();
             return dataForKeyPress && navigate(dataForKeyPress.path);
         })
     }, []);
 
-    useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
-        const audio = new Audio(leavesSound);
-        audio.volume = 0.1;
-        audio.play();
-    }, [location.pathname])
+    // useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
+    //     const audio = new Audio(leavesSound);
+    //     if (audio) {
+    //         audio.volume = 0.1;
+    //         audio.play();
+    //     };
+    // }, [location.pathname])
 
 
 
@@ -253,7 +265,7 @@ export default function Layout({ children, location }) {
                 </Content>
 
 
-                <MapContainer bg={bg}>
+                <MapContainer bg={bg} isHome={location.pathname === '/'}>
 
                     <img
                         className="lines"
@@ -261,7 +273,7 @@ export default function Layout({ children, location }) {
                         alt=""
                     />
 
-                    <Map isHome={location.pathname === '/'}>
+                    <Map>
                         <Points>
                             {data.map((d, i) => {
                                 return d.title && (
@@ -313,28 +325,3 @@ const MapImage = () => {
         alt="Gnomonic projection of the Arctic"
     />
 }
-
-// const BgImage = () => {
-
-//     const data = useStaticQuery(graphql`
-//         query {
-//             file(relativePath: {eq: "bg-texture.png"}) {
-//                 childImageSharp {
-//                     gatsbyImageData(
-//                         width: 1700
-//                         placeholder: BLURRED
-//                         formats: [AUTO, WEBP, AVIF]
-//                     )
-//                 }
-//             }
-//         }
-//     `);
-
-//     const image = getImage(data.file)
-
-//     return <GatsbyImage
-//         className="map"
-//         image={image}
-//         alt="Gnomonic projection of the Arctic"
-//     />
-// }

@@ -6,6 +6,7 @@ import Section from '../components/Section'
 import styled from 'styled-components';
 import { Link } from 'gatsby'
 
+
 const IndexPage = () => {
 
   return (
