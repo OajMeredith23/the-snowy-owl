@@ -29,15 +29,13 @@ module.exports = {
       __key: "pages",
     },
     {
-      resolve: `gatsby-plugin-modal-routing`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
-        // A selector to set react-modal's app root to, default is `#___gatsby`
-        // See http://reactcommunity.org/react-modal/accessibility/#app-element
-        appElement: '#___gatsby',
-
-        // Object of props that will be passed to the react-modal container
-        // See http://reactcommunity.org/react-modal/#usage
-        modalProps: {},
+        fonts: [
+          `comfortaa\: 700, 400`,
+          `montserrat\:300,400,400i,700` // you can also specify font weights and styles
+        ],
+        display: 'swap'
       }
     },
     {

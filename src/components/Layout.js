@@ -11,44 +11,44 @@ import leavesSound from '../images/dry-leaves.wav';
 
 const data = [
     {
-        title: 'Route 1',
-        key: 'ArrowDown',
-        path: '/owl-1',
-        x: 20, //40, 50
+        title: 'Owls, Lemmings & Snow Cover', //1
+        key: 'ArrowRight',
+        path: '/owls-lemmings-snow',
+        x: 20,
         y: 55
     },
     {
-        title: 'Route 2',
-        key: 'ArrowRight',
-        path: '/owl-2',
-        x: 20, // 40, 40 
-        y: 30
+        title: 'Irruptions ', // 2
+        key: 'ArrowDown',
+        path: '/irruptions',
+        x: 10,
+        y: 40
     },
     {
-        title: 'Route 3',
+        title: 'Population Decline',
         key: 'ArrowLeft',
-        path: '/owl-3',
+        path: '/population-decline',
         x: 35, // 30, 20
         y: 30
     },
     {
-        title: 'Route 4',
+        title: 'Physiology',
         key: 'ArrowUp',
-        path: '/owl-4',
+        path: '/physiology',
         x: 70,
         y: 30
     },
     {
-        title: 'Route 5',
+        title: 'Habitat',
         key: 'KeyA',
-        path: '/owl-5',
+        path: '/habitat',
         x: 85,
         y: 50
     },
     {
-        title: 'Route 6',
+        title: 'Territory',
         key: 'KeyW',
-        path: '/owl-6',
+        path: '/territory',
         x: 60,
         y: 70
     },
@@ -90,7 +90,7 @@ const variants = {
 const MAP_SIZE = 700;
 
 const theme = {
-    accentColor: 'tomato',
+    accentColor: '#f58916',
     borderRadius: '1em',
     foreground: 'white',
     middleground: '#f9f9f9f9',
@@ -116,6 +116,8 @@ const MapContainer = styled(motion.div)`
     height: 100vh;
     background: url(${({ bg }) => bg}) no-repeat center;
     filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(12px)'};
+    transform: ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
+    transition: 0.8s ease-in-out;
     background-size: cover;
     mix-blend-mode: screen;
     .lines {
@@ -133,10 +135,9 @@ const MapContainer = styled(motion.div)`
 const Map = styled.div`
     position: absolute;
     top: 50%; right: 0; bottom: 0; left: 50%;
-    transform: translate(-50%, -50%) ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
+    transform: translate(-50%, -50%) ;
     width: min(100%, ${MAP_SIZE}px);
     padding-bottom: min(100%, ${MAP_SIZE}px);
-    transition: .6s ease-in-out;
     .map {
         transform-origin: center;
         width: 100%;
@@ -195,6 +196,7 @@ const GlobalStyle = createGlobalStyle`
     body{
         width: 100%;
         height: 100%;
+        font-family: 'Montserrat', sans-serif;
     }
 
     * {
@@ -208,6 +210,10 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
     }
 
+    h1, h2, h3, h4, h5, h6{
+        font-family: comfortaa, sans-serif;
+        font-weight: 700;
+    }
     p, h1, h2 {
         line-height: 1.5em;
     }
