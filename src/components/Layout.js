@@ -215,7 +215,13 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
     }
     p, h1, h2 {
-        line-height: 1.5em;
+        line-height: 1.8em;
+    }
+
+    .infographic {
+        @media(min-width: 700px){
+            padding: 0 4em;
+        }
     }
 `
 
@@ -234,18 +240,14 @@ export default function Layout({ children, location }) {
     useEffect(() => {
         window.addEventListener('keydown', (e) => {
             const dataForKeyPress = data.find(d => d.key === e.code);
-            // playSound();
+            playSound();
             return dataForKeyPress && navigate(dataForKeyPress.path);
         })
     }, []);
 
-    // useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
-    //     const audio = new Audio(leavesSound);
-    //     if (audio) {
-    //         audio.volume = 0.1;
-    //         audio.play();
-    //     };
-    // }, [location.pathname])
+    useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
+        // playSound();
+    }, [location.pathname])
 
 
 

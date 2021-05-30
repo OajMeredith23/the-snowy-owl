@@ -14,13 +14,10 @@ export default function PageLayout({ children }) {
 const Container = styled.div`
     background: ${({ theme }) => theme.foreground};
     border-radius: ${({ theme }) => theme.borderRadius};
-    position: absolute;
+    // position: absolute;
     z-index: 5;
-    top: 0; left: 0; right: 0; bottom: 0; 
+    // top: 0; left: 0; right: 0; bottom: 0; 
     opacity: 0.95;
     padding: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    min-height: 100vh;
 `
