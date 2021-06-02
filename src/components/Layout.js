@@ -216,8 +216,14 @@ const GlobalStyle = createGlobalStyle`
     }
     p, h1, h2 {
         line-height: 1.8em;
+        
     }
 
+    p::first-line{
+        font-style: italic;
+        font-weight: 700;
+    }
+    
     .infographic {
         @media(min-width: 700px){
             padding: 0 4em;

@@ -11,7 +11,7 @@ const Irruptions = () => {
                 <Text className="col-lg-3">
                     <h1>Irruptions</h1>
                     <p>
-                        <em>Every four or five years an irruption occurs,</em> when young, curious, and fattened up snowy owls travel south into areas they’d otherwise never be seen.
+                        Every four or five years an irruption occurs, when young, curious, and fattened up snowy owls travel thousands of miles into areas they’d otherwise never be seen.
                     <br />
                     No one knows exactly why this happens, but we do know it coincides with an increase in the overall population that is triggered by an increase in the amount of their favorite prey: lemmings.
                     </p>

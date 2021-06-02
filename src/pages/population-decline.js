@@ -14,7 +14,7 @@ export default function OwlOne() {
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident veniam adipisci necessitatibus culpa nam iste a quibusdam, explicabo corporis libero.
                 </p>
                 </Text>
-                <div className="col-lg-9 infographic">
+                <div className="col-lg-9">
                     <StaticImage
                         src="../images/pop-feathers.png"
                         placeholder="blurred"
