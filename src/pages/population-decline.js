@@ -13,7 +13,7 @@ export default function OwlOne() {
                     <h1>Population Decline</h1>
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident veniam adipisci necessitatibus culpa nam iste a quibusdam, explicabo corporis libero.
-                </p>
+                    </p>
                 </Text>
 
                 <Graphic className="col-lg-9">
