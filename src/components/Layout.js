@@ -115,7 +115,7 @@ const MapContainer = styled(motion.div)`
     top: 0; right: 0; bottom: 0; left: 0;
     height: 100vh;
     background: url(${({ bg }) => bg}) no-repeat center;
-    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(12px)'};
+    // filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(12px)'};
     transform: ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
     transition: 0.8s ease-in-out;
     background-size: cover;
@@ -302,7 +302,7 @@ export default function Layout({ children, location }) {
                                             y={d.y}
                                             isCurrent={location.pathname === d.path}
                                         >
-                                            {i + 1}
+                                            {/* {i + 1} */}
                                         </Point>
                                     </Link>
                                 )

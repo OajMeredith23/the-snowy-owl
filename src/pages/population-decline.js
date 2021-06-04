@@ -12,7 +12,9 @@ export default function OwlOne() {
                 <Text className="col-lg-3">
                     <h1>Population Decline</h1>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident veniam adipisci necessitatibus culpa nam iste a quibusdam, explicabo corporis libero.
+                        Global snowy owl populations used to be estimated at over 200,000 inidivduals, but in 2013 that changed. Their population was re-estimated, and put at 24,000. Since then further re-estimates have put that number as low as 13,000.
+                        <br />
+                        Climate change, loss of habitat, and dwindling food sources are likely causes of this population decline. But, we also simply don’t know, the snowy owls remote territory make them incredibly difficult to understand.
                     </p>
                 </Text>
 
