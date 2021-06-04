@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Text, Container, Graphic } from '../components/UI_Elements'
 import PageLayout from '../components/PageLayout'
 
+
 const Irruptions = () => {
     return (
         <PageLayout>
@@ -20,7 +21,7 @@ const Irruptions = () => {
                     <StaticImage
                         src="../images/irruption-map.png"
                         placeholder="blurred"
-                    // width={1200}
+                        height={700}
                     />
                 </Graphic>
             </Container>

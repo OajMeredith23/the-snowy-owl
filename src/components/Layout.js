@@ -97,13 +97,13 @@ const theme = {
     background: 'grey'
 }
 
-const PageContainer = styled(motion.main)`
+const PageContainer = styled(motion.div)`
     position: absolute;
     top: 1em;
     right: 1em;
     left: 1em;
     bottom: 1em;
-    pointer-events: none;
+    // pointer-events: none;
     opacity: 1;
 `
 
@@ -119,7 +119,6 @@ const MapContainer = styled(motion.div)`
     transform: ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
     transition: 0.8s ease-in-out;
     background-size: cover;
-    mix-blend-mode: screen;
     .lines {
         object-fit: cover;
         display: inline-block;
@@ -188,7 +187,6 @@ const Content = styled.div`
             opacity: 0;
         `}
     }
-    z-index: 5;
 `
 
 
@@ -229,6 +227,11 @@ const GlobalStyle = createGlobalStyle`
             padding: 0 4em;
         }
     }
+
+    svg {
+        padding: 0;
+        margin: 0;
+    }
 `
 
 export default function Layout({ children, location }) {
@@ -246,7 +249,7 @@ export default function Layout({ children, location }) {
     useEffect(() => {
         window.addEventListener('keydown', (e) => {
             const dataForKeyPress = data.find(d => d.key === e.code);
-            playSound();
+            // playSound();
             return dataForKeyPress && navigate(dataForKeyPress.path);
         })
     }, []);
@@ -261,7 +264,6 @@ export default function Layout({ children, location }) {
         <ThemeProvider theme={theme}>
 
             <GlobalStyle />
-
             <Container>
                 <Content isVisible={location.pathname !== '/'}>
                     <AnimatePresence>
