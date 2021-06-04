@@ -72,11 +72,9 @@ const OwlsLemmingsAndSnow = () => {
             ],
             fill: true,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            pointBackgroundColor: 'rgb(255, 99, 132)',
+            borderColor: '#ea8513',
+            pointBackgroundColor: 'whitesmoke',
             pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 99, 132)',
         }, {
             label: 'Lemming Population',
             data: [
@@ -111,13 +109,8 @@ const OwlsLemmingsAndSnow = () => {
                 // 20, 10, 10, 15, 5, 30, 35, 30, 5, 4, 5, 18, 40,
                 //  5, 40, 5, 15, 30, 10, 5, 5, 40
             ],
-            fill: true,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            fill: false,
             borderColor: 'rgb(54, 162, 235)',
-            pointBackgroundColor: 'rgb(54, 162, 235)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(54, 162, 235)',
         }]
     };
 
@@ -126,6 +119,11 @@ const OwlsLemmingsAndSnow = () => {
             <Container className="row">
                 <Text className="col-lg-3">
                     <h1>Owls, Lemmings & Snow cover</h1>
+                    <p>
+                        Snowy owls are not fussy eaters, but there’s one prey they enjoy more than any other: lemmings. Every four or so years lemmings will have a breeding boom, this abdundance of food leads to an increase in snowy owl chicks and a boom in the population of owls.
+                        <br />
+                        But, lemmings like to breed deep beneath the snow, and with deep snow cover becoming increasingly infrequent their numbers may beging to dwindle, and the snowy owls may follow.
+                    </p>
                 </Text>
                 <Graphic className="col-lg-9" bg={owlLemmingImg}>
 
@@ -161,7 +159,7 @@ const OwlsLemmingsAndSnow = () => {
                                     },
                                     elements: {
                                         line: {
-                                            borderWidth: 3
+                                            borderWidth: 2
                                         }
                                     }
                                 }}

@@ -5,9 +5,9 @@ export const Container = styled.div`
     height: calc(100vh - 4em);
     position: relative;
     z-index: 10;
-    > * {
-        border: 1px dashed lightblue;
-    }
+    // > * {
+    //     border: 1px dashed lightblue;
+    // }
 `
 
 export const Graphic = styled.div`
