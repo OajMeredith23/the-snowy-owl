@@ -214,7 +214,9 @@ const GlobalStyle = createGlobalStyle`
     }
     p, h1, h2 {
         line-height: 1.8em;
-        
+    }
+    p{
+        margin-bottom: 0;
     }
 
     p::first-line{

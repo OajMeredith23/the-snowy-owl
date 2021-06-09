@@ -49,5 +49,5 @@ export const Credit = styled.small`
 export const Text = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 3em 1em;
+    padding: 1em 1em;
 `
