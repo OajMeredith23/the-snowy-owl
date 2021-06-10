@@ -117,15 +117,22 @@ const OwlsLemmingsAndSnow = () => {
     return (
         <PageLayout>
             <Container className="row">
-                <Text className="col-lg-3">
-                    <h1>Owls, Lemmings & Snow cover</h1>
-                    <p>
-                        Snowy owls are not fussy eaters, but there’s one prey they enjoy more than any other: lemmings. Every four or so years lemmings will have a breeding boom, this abdundance of food leads to an increase in snowy owl chicks and a boom in the population of owls.
+
+                <Text className="col-lg-4 bg">
+                    <h1>Owls & Lemmings</h1>
+                    <figure className="row">
+                        <p className="col-md-6 col-lg-12">
+                            Snowy owls are not fussy eaters, but there’s one prey they enjoy more than any other: lemmings. Every four or so years lemmings will have a breeding boom, this abdundance of food leads to an increase in snowy owl chicks and a boom in the population of owls.
                         <br />
                         But, lemmings like to breed deep beneath the snow, and with deep snow cover becoming increasingly infrequent their numbers may beging to dwindle, and the snowy owls may follow.
                     </p>
+                        <div className="col-md-6 col-lg-12">
+                            <StaticImage src="https://upload.wikimedia.org/wikipedia/commons/5/59/Snowy-Owl.1.jpg"></StaticImage>
+                        </div>
+                    </figure>
                 </Text>
-                <Graphic className="col-lg-9" bg={owlLemmingImg}>
+
+                <Graphic className="col-lg-8" bg={owlLemmingImg}>
 
                     <div className="square">
 

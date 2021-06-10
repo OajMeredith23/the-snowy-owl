@@ -31,13 +31,13 @@ const data = [
         x: 35, // 30, 20
         y: 30
     },
-    {
-        title: 'Physiology',
-        key: 'ArrowUp',
-        path: '/physiology',
-        x: 70,
-        y: 30
-    },
+    // {
+    //     title: 'Physiology',
+    //     key: 'ArrowUp',
+    //     path: '/physiology',
+    //     x: 70,
+    //     y: 30
+    // },
     {
         title: 'Habitat',
         key: 'KeyA',
@@ -91,10 +91,10 @@ const MAP_SIZE = 700;
 
 const theme = {
     accentColor: '#f58916',
-    borderRadius: '1em',
+    borderRadius: '.5em',
     foreground: 'white',
     middleground: '#f9f9f9f9',
-    background: 'grey'
+    background: '#f7f7f7'
 }
 
 const PageContainer = styled(motion.div)`
@@ -178,7 +178,7 @@ const Point = styled.button`
     `
 
 const Content = styled.div`
-    position: fixed;
+    position: relative;
     z-index: 2;
     top: 0; right: 0; bottom: 0; left: 0;
     ${({ isVisible }) => {
@@ -192,8 +192,8 @@ const Content = styled.div`
 
 const GlobalStyle = createGlobalStyle`
     body{
-        width: 100%;
-        height: 100%;
+        // width: 100%;
+        // height: 100%;
         font-family: 'Montserrat', sans-serif;
     }
 
@@ -213,21 +213,25 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
     }
     p, h1, h2 {
-        line-height: 1.8em;
+        line-height: 2em;
     }
     p{
         margin-bottom: 0;
     }
 
-    p::first-line{
-        font-style: italic;
-        font-weight: 700;
-    }
     
+    
+    strong {
+        font-weight: 700; 
+    }
     .infographic {
         @media(min-width: 700px){
             padding: 0 4em;
         }
+    }
+
+    img {
+        border-radius: ${({ theme }) => theme.borderRadius};
     }
 
     svg {

@@ -2,22 +2,17 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: calc(100vh - 4em);
     position: relative;
     z-index: 10;
-    // > * {
-    //     border: 1px dashed lightblue;
-    // }
 `
 
 export const Graphic = styled.div`
     height: calc(100vh - 4em);
     position: relative;
-    padding: 0;
+    padding: 0 1em;
     display: flex;
     align-items: center;
     justify-content: center;
-    
     .square {
         position: relative;
         @media(min-width: 768px){
@@ -40,14 +35,27 @@ export const Graphic = styled.div`
 export const Credit = styled.small`
     display: block;
     position: absolute;
-    left: 0;
+    left: 1em;
     right: 0;
     bottom: 0;
+    
 `
 
 
 export const Text = styled.div`
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     padding: 1em 1em;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    div {
+        margin: .5em 0;
+        padding: 0;
+    }
+    &.bg{
+        background ${({ theme }) => theme.background};
+        border-right: .05px solid ${({ theme }) => theme.middleground};
+    }
+    .img {
+        margin: 1em 0;
+    }
 `

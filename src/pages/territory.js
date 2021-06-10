@@ -3,40 +3,25 @@ import PageLayout from '../components/PageLayout'
 import { StaticImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 import { Text } from '../components/UI_Elements'
+
 const Territory = () => {
     return (
         <PageLayout>
-            <Container
-            // style={{ position: 'absolute', top: '1em', left: '1em', right: '1em', bottom: '1em' }}
-            >
-
+            <Container>
 
                 <Text className="row">
-                    <h1 className="col-12">Territory</h1>
-                    <div className="row col-12">
+                    <h1>Territory</h1>
+                    <figure className="row col-12">
                         <div className="row col-md-10">
                             <p className="col-10 col-lg-6">
                                 Snowy owls are found across the northern hemisphere, with birds being seen from Cornwall to Greenland, and everywhere in between the long way round.
                             </p>
 
                         </div>
-                        {/* <div className="col-md-2 d-none d-md-inline">
-                            <StaticImage
-                                className="image"
-                                src="../images/owl-logo.png"
-                                style={{
-                                    height: '100px',
-                                }}
-                                imgStyle={{
-                                    maxHeight: '100px',
-                                }}
-                            />
-                        </div> */}
-                    </div>
+                    </figure>
                 </Text>
 
                 <MapContainer>
-                    {/* <div> */}
                     <BackgroundGrid className="row">
                         <div className="col-md-3"></div>
                         <div className="col-md-3"></div>
@@ -56,14 +41,13 @@ const Territory = () => {
                         <p className="col-md-3">
                             Owls have been known to cross the Bering sea from Alaska into Russia and deep into Siberia, where the open spaces and cold climate match their North American range.
                         </p>
-                        <div className="col-12">
+                        <div className="col-12 img">
                             <StaticImage
                                 src="../images/territorymap2.png"
 
                             />
                         </div>
                     </MapAndText>
-                    {/* </div> */}
                 </MapContainer>
 
             </Container>
@@ -73,9 +57,9 @@ const Territory = () => {
 
 const Container = styled.div`
     display: flex;
-    min-height: calc(100vh);
+    min-height: calc(100vh - 4em);
     flex-direction: column; 
-    justify-content: space-around;
+    justify-content: space-between;
 `
 
 const BackgroundGrid = styled.div`
@@ -107,6 +91,8 @@ const BackgroundGrid = styled.div`
 const MapContainer = styled.div`
     position: relative;
     height: 100%;
+    flex-grow: 100;
+    display: flex; 
 `
 
 const MapAndText = styled.div`
@@ -116,6 +102,10 @@ const MapAndText = styled.div`
         z-index: 3;
         border-left: .25em solid ${({ theme }) => theme.accentColor};
         padding: 1em;
+    }
+    
+    .img {
+        align-self: flex-end;
     }
 `
 
