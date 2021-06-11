@@ -43,7 +43,12 @@ export const Credit = styled.small`
 
 
 export const Text = styled.div`
-
+    ${({ fullHeight }) => {
+        return fullHeight && `
+        overflow-y: scroll;
+        height: calc(100vh - 4em);
+        `
+    }}
     border-radius: ${({ theme }) => theme.borderRadius};
     &.bg{
         background ${({ theme }) => theme.background};

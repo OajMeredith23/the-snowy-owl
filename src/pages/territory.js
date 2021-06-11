@@ -9,7 +9,9 @@ const Territory = () => {
         <PageLayout>
             <Container>
 
-                <Text className="row">
+                <Text
+                    className="row"
+                >
                     <h1>Territory</h1>
                     <figure className="row col-12">
                         <div className="row col-md-10">
@@ -72,9 +74,6 @@ const BackgroundGrid = styled.div`
     z-index: 2;
     .col-md-3{
         border-left: .25em dashed lightgrey;
-        &:last-child{
-            border-right: 1px dashed lightgrey;
-        }
         position: relative;
         &::after{
             content: '';

@@ -117,7 +117,10 @@ const OwlsLemmingsAndSnow = () => {
     return (
         <PageLayout>
 
-            <Text className="col-lg-4 bg">
+            <Text
+                fullHeight
+                className="col-lg-4 bg"
+            >
                 <h1>Owls & Lemmings</h1>
                 <figure className="row">
                     <p className="col-md-6 col-lg-10">

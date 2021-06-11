@@ -12,7 +12,6 @@ import lines from '../images/gnomonic-lines.png'
 import bg from '../images/bg-texture.png'
 import leavesSound from '../images/dry-leaves.wav';
 
-export const MapContext = React.createContext({ withMap: false });
 
 const pages = [
     {
@@ -36,13 +35,6 @@ const pages = [
         x: 35, // 30, 20
         y: 30
     },
-    // {
-    //     title: 'Physiology',
-    //     key: 'ArrowUp',
-    //     path: '/physiology',
-    //     x: 70,
-    //     y: 30
-    // },
     {
         title: 'Habitat',
         key: 'KeyA',
@@ -105,8 +97,6 @@ const theme = {
 
 export default function Layout({ children, location }) {
 
-    const [currentPage, setCurrentPage] = useState(false);
-
     const [withMap, setWithMap] = useState(false);
 
     useEffect(() => {
@@ -142,7 +132,6 @@ export default function Layout({ children, location }) {
 
     return (
         <ThemeProvider theme={theme}>
-            {/* <MapContext.Provider value={{ withMap }}> */}
             <GlobalStyle />
 
             {location.pathname !== '/' && !withMap &&
@@ -163,7 +152,7 @@ export default function Layout({ children, location }) {
                 </Nav>
             }
 
-            <Container>
+            <div>
 
                 <Content
                     isVisible={location.pathname !== '/'}
@@ -228,8 +217,7 @@ export default function Layout({ children, location }) {
 
                     </MapContainer>
                 </HomePage>
-            </Container >
-            {/* </MapContext.Provider> */}
+            </div >
         </ThemeProvider >
     )
 }
@@ -238,7 +226,6 @@ const Nav = styled.div`
     position: fixed;
     top: 2em;
     right: 2em;
-    // left: calc(100% - 6em);
     z-index: 10;
 `
 
@@ -251,16 +238,9 @@ const PageContainer = styled(motion.div)`
     opacity: 1;
 `
 
-const Container = styled(motion.div)`
-    // position: fixed;
-    // top: 0; left: 0; right: 0; bottom: 0;
-    // padding: 1em;
-    // overflow-y: scroll;
-    `
 
 const MapContainer = styled(motion.div)`
     min-height: calc(100vh - 1em);
-    // overflow-y: scroll;
     background: url(${({ bg }) => bg}) no-repeat center;
     filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(0)'};
     transition: 0.8s ease-in-out;
@@ -321,7 +301,7 @@ const Point = styled.button`
     cursor: pointer;
     box-shadow: 1px 2px 3px rgba(0,0,0,0.4);
     transition: .2s ease-in-out;
-    `
+`
 
 const Content = styled.div`
     position: relative;
@@ -333,6 +313,8 @@ const Content = styled.div`
             opacity: 0;
         `}
     }
+    width: 100%;
+    height: 100%;
 `
 
 
@@ -394,6 +376,7 @@ const HomePage = styled.div`
     background-size: cover;
     filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(8px)'};
     transition: 0.8s ease-in-out;
+    width: calc(100% - 2em)
 `
 
 const Titles = styled.div`
