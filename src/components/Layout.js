@@ -1,15 +1,20 @@
 import * as React from "react"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, navigate, graphql, useStaticQuery } from 'gatsby'
+import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import { motion, AnimatePresence } from "framer-motion"
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import queryString from 'query-string'
+import FeatherIcon from 'feather-icons-react';
+
 import map from '../images/gnomonic-map.png'
 import lines from '../images/gnomonic-lines.png'
 import bg from '../images/bg-texture.png'
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import leavesSound from '../images/dry-leaves.wav';
 
-const data = [
+export const MapContext = React.createContext({ withMap: false });
+
+const pages = [
     {
         title: 'Owls, Lemmings & Snow Cover', //1
         key: 'ArrowRight',
@@ -97,28 +102,169 @@ const theme = {
     background: '#f7f7f7'
 }
 
+
+export default function Layout({ children, location }) {
+
+    const [currentPage, setCurrentPage] = useState(false);
+
+    const [withMap, setWithMap] = useState(false);
+
+    useEffect(() => {
+        setWithMap(queryString.parse(location.search).withmap === 'true')
+    }, []);
+
+    function playSound() {
+        const audio = new Audio(leavesSound);
+        if (audio) {
+            audio.volume = 0.1;
+            audio.play();
+        };
+
+    }
+    useEffect(() => {
+        window.addEventListener('keydown', (e) => {
+            const dataForKeyPress = pages.find(d => d.key === e.code);
+            return dataForKeyPress && navigate(dataForKeyPress.path);
+        })
+    }, []);
+
+    useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
+        // playSound();
+    }, [location.pathname])
+
+
+    const [currPage, setCurrPage] = useState(null);
+
+    useEffect(() => {
+        setCurrPage(pages.findIndex(page => page.path === location.pathname))
+    }, [location]);
+
+
+    return (
+        <ThemeProvider theme={theme}>
+            {/* <MapContext.Provider value={{ withMap }}> */}
+            <GlobalStyle />
+
+            {location.pathname !== '/' && !withMap &&
+                <Nav>
+                    {!!pages[currPage - 1]?.path &&
+                        <Link to={pages[currPage - 1]?.path}>
+                            <FeatherIcon icon="chevron-left" />
+                        </Link>
+                    }
+                    {pages[currPage + 1]?.path.length > 1 &&
+                        <Link to={pages[currPage + 1]?.path}>
+                            <FeatherIcon icon="chevron-right" />
+                        </Link>
+                    }
+                    <Link to="/">
+                        <FeatherIcon icon="x" />
+                    </Link>
+                </Nav>
+            }
+
+            <Container>
+
+                <Content
+                    isVisible={location.pathname !== '/'}
+                >
+                    <AnimatePresence>
+                        <PageContainer
+                            key={location?.pathname}
+                            withMap={withMap}
+                            variants={variants}
+                            initial="initial"
+                            animate="enter"
+                            exit="exit"
+
+                        >
+                            {children}
+                        </PageContainer>
+                    </AnimatePresence>
+                </Content>
+
+                <HomePage
+                    isHome={location.pathname === '/'}
+                    className="row" bg={bg}>
+
+                    <Titles className="col-lg-4 row d-flex justify-content-center">
+                        <div className="row col-md-12 col-lg-9" >
+                            <h1 className="">The Snowy Owl</h1>
+
+                            <p className="col-md-6 col-lg-12">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta blanditiis aut, animi laborum libero, dolorem delectus quas necessitatibus, nemo natus impedit minima? Eaque eius cupiditate exercitationem similique repellendus, voluptatem earum iure omnis, rem possimus sint odit ut voluptatibus, in sit.
+                            </p>
+                        </div>
+                    </Titles>
+
+                    <MapContainer
+                        className="col-lg-8"
+                    >
+                        <img
+                            className="lines"
+                            src={lines}
+                            alt=""
+                        />
+
+                        <Map>
+                            <Points>
+                                {pages.map((d, i) => {
+                                    return d.title && (
+                                        <Link
+                                            key={d.title}
+                                            to={d.path}
+                                        >
+                                            <Point
+                                                x={d.x}
+                                                y={d.y}
+                                                isCurrent={location.pathname === d.path}
+                                            />
+                                        </Link>
+                                    )
+                                })}
+                            </Points>
+                            <MapImage />
+                        </Map>
+
+                    </MapContainer>
+                </HomePage>
+            </Container >
+            {/* </MapContext.Provider> */}
+        </ThemeProvider >
+    )
+}
+
+const Nav = styled.div`
+    position: fixed;
+    top: 2em;
+    right: 2em;
+    // left: calc(100% - 6em);
+    z-index: 10;
+`
+
 const PageContainer = styled(motion.div)`
     position: absolute;
-    top: 1em;
-    right: 1em;
-    left: 1em;
-    bottom: 1em;
-    // pointer-events: none;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
     opacity: 1;
 `
 
 const Container = styled(motion.div)`
-`
+    // position: fixed;
+    // top: 0; left: 0; right: 0; bottom: 0;
+    // padding: 1em;
+    // overflow-y: scroll;
+    `
 
 const MapContainer = styled(motion.div)`
-    position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
-    height: 100vh;
+    min-height: calc(100vh - 1em);
+    // overflow-y: scroll;
     background: url(${({ bg }) => bg}) no-repeat center;
-    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(12px)'};
-    transform: ${({ isHome }) => isHome ? 'scale(1)' : 'scale(1.1)'};
+    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(0)'};
     transition: 0.8s ease-in-out;
-    background-size: cover;
+
     .lines {
         object-fit: cover;
         display: inline-block;
@@ -192,8 +338,6 @@ const Content = styled.div`
 
 const GlobalStyle = createGlobalStyle`
     body{
-        // width: 100%;
-        // height: 100%;
         font-family: 'Montserrat', sans-serif;
     }
 
@@ -219,7 +363,12 @@ const GlobalStyle = createGlobalStyle`
         margin-bottom: 0;
     }
 
-    
+    a {
+        color: inherit;
+        &:hover{
+            color: ${({ theme }) => theme.accentColor};
+        }
+    }
     
     strong {
         font-weight: 700; 
@@ -240,91 +389,22 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-export default function Layout({ children, location }) {
+const HomePage = styled.div`
+    background: url(${({ bg }) => bg}) no-repeat center;
+    background-size: cover;
+    filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(8px)'};
+    transition: 0.8s ease-in-out;
+`
 
-    const [currentPage, setCurrentPage] = useState(false);
-
-    function playSound() {
-        const audio = new Audio(leavesSound);
-        if (audio) {
-            audio.volume = 0.1;
-            audio.play();
-        };
-
-    }
-    useEffect(() => {
-        window.addEventListener('keydown', (e) => {
-            const dataForKeyPress = data.find(d => d.key === e.code);
-            // playSound();
-            return dataForKeyPress && navigate(dataForKeyPress.path);
-        })
-    }, []);
-
-    useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
-        // playSound();
-    }, [location.pathname])
-
-
-
-    return (
-        <ThemeProvider theme={theme}>
-
-            <GlobalStyle />
-            <Container>
-                <Content isVisible={location.pathname !== '/'}>
-                    <AnimatePresence>
-                        <PageContainer
-                            key={location?.pathname}
-                            variants={variants}
-                            initial="initial"
-                            animate="enter"
-                            exit="exit"
-
-                        >
-                            {children}
-                        </PageContainer>
-                    </AnimatePresence>
-                </Content>
-
-
-                <MapContainer bg={bg} isHome={location.pathname === '/'}>
-
-                    <img
-                        className="lines"
-                        src={lines}
-                        alt=""
-                    />
-
-                    <Map>
-                        <Points>
-                            {data.map((d, i) => {
-                                return d.title && (
-                                    <Link
-                                        key={d.title}
-                                        to={d.path}
-                                    >
-                                        <Point
-                                            x={d.x}
-                                            y={d.y}
-                                            isCurrent={location.pathname === d.path}
-                                        >
-                                            {/* {i + 1} */}
-                                        </Point>
-                                    </Link>
-                                )
-                            })}
-                        </Points>
-                        <MapImage />
-                    </Map>
-
-                </MapContainer>
-            </Container >
-        </ThemeProvider>
-    )
-}
+const Titles = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+`
 
 const MapImage = () => {
-
     const data = useStaticQuery(graphql`
         query {
             file(relativePath: {eq: "gnomonic-map4.png"}) {

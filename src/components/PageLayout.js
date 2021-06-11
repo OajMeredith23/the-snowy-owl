@@ -1,15 +1,21 @@
-import * as React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'gatsby'
 import styled from 'styled-components';
-
+import FeatherIcon from 'feather-icons-react';
 
 export default function PageLayout({ children }) {
 
+
     return (
-        <Container>
-            {children}
-        </Container>
+        <>
+            <Container className="row">
+                {children}
+            </Container>
+        </>
     )
 }
+
+
 
 const Container = styled.div`
     background: ${({ theme }) => theme.foreground};
@@ -17,5 +23,4 @@ const Container = styled.div`
     z-index: 5;
     opacity: 0.95;
     padding: 1em;
-    min-height: 100vh;
 `

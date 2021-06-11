@@ -43,19 +43,15 @@ export const Credit = styled.small`
 
 
 export const Text = styled.div`
-    // display: flex;
-    // flex-direction: column;
-    padding: 1em 1em;
+
     border-radius: ${({ theme }) => theme.borderRadius};
-    div {
-        margin: .5em 0;
-        padding: 0;
-    }
     &.bg{
         background ${({ theme }) => theme.background};
         border-right: .05px solid ${({ theme }) => theme.middleground};
     }
-    .img {
+    figure img {
+        display: inline-block;
         margin: 1em 0;
     }
+    
 `

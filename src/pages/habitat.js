@@ -16,14 +16,12 @@ const Habitat = () => {
                     <div className="col-md-6 col-lg-4">
                         <h1 className="text-center">Habitat</h1>
                         <p className="text-center">
-                            The Arctic Tundra that snowy owls inhabit exists largely above the tree line; open, flat spaces covered by grass in summer, snow in winter are where the snowy owl feels most comfortable.
-                            The hunt for their prey by swooping above the open ground, picking out small rodents in the snow or grass before swooping down and grabbing them in their talons.
+                            The Arctic Tundra that snowy owls inhabit exists largely above the tree line; open, flat spaces that are covered by grass in summer and snow in winter are where the snowy owl feels most comfortable.
+                            <br />
+                            They hunt for their prey by swooping above the open ground, picking out small rodents in the snow or grass before swooping down and grabbing them in their talons.
+                            <br />
                             As snowy owls and human settlements have converged, the owls have found a similar environment to their native habitat in airports. The wide open spaces, and the snowy owls seeming indifference to thundering aeroplanes, make the huge flat spaces surrounding airport runways feel just like home for these owls.
                         </p>
-
-                        {/* <div className="img">
-                            <StaticImage src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Snowy_owl_landing.jpg" />
-                        </div> */}
                     </div>
 
                 </Text>

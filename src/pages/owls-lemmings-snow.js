@@ -116,67 +116,64 @@ const OwlsLemmingsAndSnow = () => {
 
     return (
         <PageLayout>
-            <Container className="row">
 
-                <Text className="col-lg-4 bg">
-                    <h1>Owls & Lemmings</h1>
-                    <figure className="row">
-                        <p className="col-md-6 col-lg-12">
-                            Snowy owls are not fussy eaters, but there’s one prey they enjoy more than any other: lemmings. Every four or so years lemmings will have a breeding boom, this abdundance of food leads to an increase in snowy owl chicks and a boom in the population of owls.
+            <Text className="col-lg-4 bg">
+                <h1>Owls & Lemmings</h1>
+                <figure className="row">
+                    <p className="col-md-6 col-lg-10">
+                        Snowy owls are not fussy eaters, but there’s one prey they enjoy more than any other: lemmings. Every four or so years the lemming population will explode, this sudden abdundance of food leads to an increase in snowy owl chicks and a boom in the population of owls.
                         <br />
                         But, lemmings like to breed deep beneath the snow, and with deep snow cover becoming increasingly infrequent their numbers may beging to dwindle, and the snowy owls may follow.
                     </p>
-                        <div className="col-md-6 col-lg-12">
-                            <StaticImage src="https://upload.wikimedia.org/wikipedia/commons/5/59/Snowy-Owl.1.jpg"></StaticImage>
-                        </div>
-                    </figure>
-                </Text>
+                    <div className="col-md-6 col-lg-12">
+                        <StaticImage src="https://upload.wikimedia.org/wikipedia/commons/5/59/Snowy-Owl.1.jpg"></StaticImage>
+                    </div>
+                </figure>
+            </Text>
 
-                <Graphic className="col-lg-8" bg={owlLemmingImg}>
+            <Graphic className="col-lg-8 d-sm-none d-md-flex" bg={owlLemmingImg}>
 
-                    <div className="square">
-
-                        <div className="chart">
-                            <Radar
-                                data={data}
-                                options={{
-                                    scales: {
-                                        r: {
-                                            ticks: {
-                                                display: false,
-                                                color: 'red'
-                                            }
-                                        }
-                                    },
-                                    plugins: {
-                                        tooltip: {
-                                            enabled: false
-                                        },
+                <div className="square">
+                    <div className="chart">
+                        <Radar
+                            data={data}
+                            options={{
+                                scales: {
+                                    r: {
                                         ticks: {
-                                            color: 'red',
-                                            display: false
-                                        },
-                                        legend: {
                                             display: false,
-                                            position: 'right',
-                                            labels: {
-                                                color: 'rgb(255, 99, 132)'
-                                            }
-                                        }
-                                    },
-                                    elements: {
-                                        line: {
-                                            borderWidth: 2
+                                            color: 'red'
                                         }
                                     }
-                                }}
-                            />
+                                },
+                                plugins: {
+                                    tooltip: {
+                                        enabled: false
+                                    },
+                                    ticks: {
+                                        color: 'red',
+                                        display: false
+                                    },
+                                    legend: {
+                                        display: false,
+                                        position: 'right',
+                                        labels: {
+                                            color: 'rgb(255, 99, 132)'
+                                        }
+                                    }
+                                },
+                                elements: {
+                                    line: {
+                                        borderWidth: 2
+                                    }
+                                }
+                            }}
+                        />
 
-                        </div>
                     </div>
+                </div>
 
-                </Graphic>
-            </Container>
+            </Graphic>
         </PageLayout >
     )
 }
