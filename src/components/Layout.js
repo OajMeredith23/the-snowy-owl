@@ -19,21 +19,21 @@ const pages = [
         title: 'Owls, Lemmings & Snow Cover', //1
         key: 'ArrowRight',
         path: '/owls-lemmings-snow',
-        x: 20,
+        x: 15,
         y: 55
     },
     {
         title: 'Irruptions ', // 2
         key: 'ArrowUp',
         path: '/irruptions',
-        x: 10,
-        y: 40
+        x: 5,
+        y: 35
     },
     {
         title: 'Population Decline',
         key: 'ArrowLeft',
         path: '/population-decline',
-        x: 35, // 30, 20
+        x: 25, // 30, 20
         y: 30
     },
     {
@@ -285,12 +285,12 @@ const Points = styled.div`
 
 const Point = styled.button`
     padding: 1em;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border-radius 50%;
-    background: ${({ isCurrent, theme }) => isCurrent ? theme.accentColor : theme.background};
+    background: transparent;
     transform: ${({ isCurrent }) => isCurrent ? 'scale(1.3)' : 'scale(1)'};
-    border: .5em solid ${({ theme }) => theme.accentColor};
+    border: .25em solid ${({ theme }) => theme.accentColor};
     position: absolute;
     top: ${({ y }) => y}%;
     left: ${({ x }) => x}%;
