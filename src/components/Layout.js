@@ -88,7 +88,7 @@ const variants = {
 const MAP_SIZE = 700;
 
 const theme = {
-    accentColor: '#f58916',
+    accentColor: '#f3c604',
     borderRadius: '.5em',
     foreground: 'white',
     middleground: '#f9f9f9f9',
@@ -174,18 +174,23 @@ export default function Layout({ children, location }) {
                     <Titles className="col-lg-4 row d-flex justify-content-center">
                         <div className="row col-md-12 col-lg-9" >
                             <h1 className="">The Snowy Owl</h1>
-
+                            <p>
+                                “One can make a strong case that snowy owls are among the handful of species, along with walruses, polar bears, and ivory gulls, at most immediate and direct risk from climate change.”
+                                <br />
+                                <br />
+                                — Scott Weidensaul, A World On The Wing
+                            </p>
                         </div>
                     </Titles>
 
                     <MapContainer
                         className="col-lg-8"
                     >
-                        <img
+                        {/* <img
                             className="lines"
                             src={lines}
                             alt=""
-                        />
+                        /> */}
 
                         <Map>
                             <Points>
@@ -214,10 +219,10 @@ export default function Layout({ children, location }) {
     )
 }
 
-const Nav = styled.div`
-    position: fixed;
-    top: 2em;
-    right: 2em;
+const Nav = styled.div`    
+     position: fixed; 
+                           top: 2em;  
+     right: 2em;
     z-index: 10;
 `
 
@@ -232,7 +237,7 @@ const PageContainer = styled(motion.div)`
 
 
 const MapContainer = styled(motion.div)`
-    min-height: calc(100vh - 1em);
+    min-height: calc(100vh);
     background: url(${({ bg }) => bg}) no-repeat center;
     filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(0)'};
     transition: 0.8s ease-in-out;
@@ -368,7 +373,9 @@ const HomePage = styled.div`
     background-size: cover;
     filter: ${({ isHome }) => isHome ? 'blur(0)' : 'blur(8px)'};
     transition: 0.8s ease-in-out;
-    width: calc(100% - 2em)
+    width: calc(100%);
+    margin: 0; padding: 0;
+    height: 100%;
 `
 
 const Titles = styled.div`
