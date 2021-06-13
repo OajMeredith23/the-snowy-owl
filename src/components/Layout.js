@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, navigate, graphql, useStaticQuery } from 'gatsby'
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 import { motion, AnimatePresence } from "framer-motion"
+import { Helmet } from "react-helmet"
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import queryString from 'query-string'
 import FeatherIcon from 'feather-icons-react';
@@ -23,7 +24,7 @@ const pages = [
     },
     {
         title: 'Irruptions ', // 2
-        key: 'ArrowDown',
+        key: 'ArrowUp',
         path: '/irruptions',
         x: 10,
         y: 40
@@ -103,24 +104,13 @@ export default function Layout({ children, location }) {
         setWithMap(queryString.parse(location.search).withmap === 'true')
     }, []);
 
-    function playSound() {
-        const audio = new Audio(leavesSound);
-        if (audio) {
-            audio.volume = 0.1;
-            audio.play();
-        };
 
-    }
     useEffect(() => {
-        window.addEventListener('keydown', (e) => {
+        window.addEventListener('keypress', (e) => {
             const dataForKeyPress = pages.find(d => d.key === e.code);
             return dataForKeyPress && navigate(dataForKeyPress.path);
-        })
+        }, { once: true })
     }, []);
-
-    useEffect(() => { // Every time the path changes (a page is open or closed, run this sound effect)
-        // playSound();
-    }, [location.pathname])
 
 
     const [currPage, setCurrPage] = useState(null);
@@ -133,6 +123,12 @@ export default function Layout({ children, location }) {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>The Snowy Owl</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
 
             {location.pathname !== '/' && !withMap &&
                 <Nav>
@@ -160,7 +156,6 @@ export default function Layout({ children, location }) {
                     <AnimatePresence>
                         <PageContainer
                             key={location?.pathname}
-                            withMap={withMap}
                             variants={variants}
                             initial="initial"
                             animate="enter"
@@ -180,9 +175,6 @@ export default function Layout({ children, location }) {
                         <div className="row col-md-12 col-lg-9" >
                             <h1 className="">The Snowy Owl</h1>
 
-                            <p className="col-md-6 col-lg-12">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta blanditiis aut, animi laborum libero, dolorem delectus quas necessitatibus, nemo natus impedit minima? Eaque eius cupiditate exercitationem similique repellendus, voluptatem earum iure omnis, rem possimus sint odit ut voluptatibus, in sit.
-                            </p>
                         </div>
                     </Titles>
 

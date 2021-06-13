@@ -17,9 +17,9 @@ export const Graphic = styled.div`
         position: relative;
         @media(min-width: 768px){
             background-image: url(${({ bg }) => bg && bg});
-            background-size: 95%;
+            background-size: 96%;
             background-repeat: no-repeat;
-            background-position: left;
+            background-position: bottom left;
             width: 77vmin;
             height: 77vmin;
         }
@@ -45,8 +45,10 @@ export const Credit = styled.small`
 export const Text = styled.div`
     ${({ fullHeight }) => {
         return fullHeight && `
-        overflow-y: scroll;
-        height: calc(100vh - 4em);
+        @media(min-widith: 768px){
+            overflow-y: scroll;
+            height: calc(100vh - 4em);
+        }
         `
     }}
     border-radius: ${({ theme }) => theme.borderRadius};

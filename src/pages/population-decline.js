@@ -1,5 +1,6 @@
 import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import PageLayout from '../components/PageLayout';
 import { Text, Container, Graphic, Credit } from '../components/UI_Elements';
@@ -7,6 +8,10 @@ import { Text, Container, Graphic, Credit } from '../components/UI_Elements';
 export default function OwlOne() {
     return (
         <PageLayout className="row">
+
+            <Helmet>
+                <title>Population Decline | The Snowy Owl</title>
+            </Helmet>
 
             <Text
                 fullHeight

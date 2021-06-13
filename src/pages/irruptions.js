@@ -1,6 +1,7 @@
 import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
+import { Helmet } from "react-helmet"
 import { Text, Container, Graphic } from '../components/UI_Elements'
 import PageLayout from '../components/PageLayout'
 
@@ -8,6 +9,11 @@ import PageLayout from '../components/PageLayout'
 const Irruptions = () => {
     return (
         <PageLayout>
+            <Helmet>
+                <title>Irruptions | The Snowy Owl</title>
+            </Helmet>
+
+
             <Text
                 fullHeight
                 className="col-lg-4 bg"

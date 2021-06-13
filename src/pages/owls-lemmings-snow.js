@@ -3,13 +3,12 @@ import Layout from '../components/Layout'
 import { Container, Text, Graphic } from '../components/UI_Elements'
 import { StaticImage } from 'gatsby-plugin-image'
 import PageLayout from '../components/PageLayout'
-import * as d3 from 'd3';
+import { Helmet } from "react-helmet"
 import { Radar } from 'react-chartjs-2'
 import owlLemmingImg from '../images/lemmings-owl-pop.png'
 
 
-const OwlsLemmingsAndSnow = () => {
-
+const OwlsAndLemmings = () => {
 
     const data = {
         labels: [
@@ -39,7 +38,7 @@ const OwlsLemmingsAndSnow = () => {
             '',
         ],
         datasets: [{
-            label: 'Owl Population',
+            label: 'Snowy Owl Nests',
             data: [
                 //     '1992',
                 15,
@@ -68,7 +67,6 @@ const OwlsLemmingsAndSnow = () => {
                 // '2016',
                 30
 
-                //  5, 30, 5, 5, 10, 10, 5, 20, 10
             ],
             fill: true,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -104,10 +102,6 @@ const OwlsLemmingsAndSnow = () => {
                 18,
                 // '2016',
                 30,
-
-
-                // 20, 10, 10, 15, 5, 30, 35, 30, 5, 4, 5, 18, 40,
-                //  5, 40, 5, 15, 30, 10, 5, 5, 40
             ],
             fill: false,
             borderColor: 'rgb(54, 162, 235)',
@@ -116,6 +110,10 @@ const OwlsLemmingsAndSnow = () => {
 
     return (
         <PageLayout>
+
+            <Helmet>
+                <title>Owls & Lemmings | The Snowy Owl</title>
+            </Helmet>
 
             <Text
                 fullHeight
@@ -145,10 +143,10 @@ const OwlsLemmingsAndSnow = () => {
                                     r: {
                                         ticks: {
                                             display: false,
-                                            color: 'red'
                                         }
                                     }
                                 },
+
                                 plugins: {
                                     tooltip: {
                                         enabled: false
@@ -158,10 +156,11 @@ const OwlsLemmingsAndSnow = () => {
                                         display: false
                                     },
                                     legend: {
-                                        display: false,
-                                        position: 'right',
-                                        labels: {
-                                            color: 'rgb(255, 99, 132)'
+                                        // display: false,
+                                        position: 'top',
+
+                                        font: {
+                                            size: 14
                                         }
                                     }
                                 },
@@ -181,4 +180,4 @@ const OwlsLemmingsAndSnow = () => {
     )
 }
 
-export default OwlsLemmingsAndSnow
+export default OwlsAndLemmings

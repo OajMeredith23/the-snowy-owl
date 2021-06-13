@@ -1,6 +1,7 @@
 import React from 'react';
 import PageLayout from '../components/PageLayout'
 import { StaticImage } from 'gatsby-plugin-image'
+import { Helmet } from "react-helmet"
 import styled from 'styled-components'
 import { Text, Graphic } from '../components/UI_Elements'
 import airportGraphic from '../images/airport.png'
@@ -10,6 +11,10 @@ const Habitat = () => {
     return (
         <PageLayout>
             <Container className="row" bg={airportGraphic}>
+
+                <Helmet>
+                    <title>Habitat | The Snowy Owl</title>
+                </Helmet>
 
                 <Text className="row col-lg-12 d-flex justify-content-center ">
 
