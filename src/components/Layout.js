@@ -288,7 +288,7 @@ const Point = styled.button`
     width: 50px;
     height: 50px;
     border-radius 50%;
-    background: ${({ isCurrent }) => isCurrent ? 'yellow' : 'whitesmoke'};
+    background: ${({ isCurrent, theme }) => isCurrent ? theme.accentColor : theme.background};
     transform: ${({ isCurrent }) => isCurrent ? 'scale(1.3)' : 'scale(1)'};
     border: .5em solid ${({ theme }) => theme.accentColor};
     position: absolute;
