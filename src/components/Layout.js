@@ -24,7 +24,7 @@ const pages = [
     },
     {
         title: 'Irruptions ', // 2
-        key: 'ArrowUp',
+        key: 'ArrowDown',
         path: '/irruptions',
         x: 5,
         y: 35
@@ -106,10 +106,11 @@ export default function Layout({ children, location }) {
 
 
     useEffect(() => {
-        window.addEventListener('keypress', (e) => {
+        window.addEventListener('keydown', (e) => {
             const dataForKeyPress = pages.find(d => d.key === e.code);
+            console.log(e.code)
             return dataForKeyPress && navigate(dataForKeyPress.path);
-        }, { once: true })
+        })
     }, []);
 
 
