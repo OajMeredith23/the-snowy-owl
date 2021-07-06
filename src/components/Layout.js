@@ -17,35 +17,35 @@ import leavesSound from '../images/dry-leaves.wav';
 const pages = [
     {
         title: 'Owls, Lemmings & Snow Cover', //1
-        key: 'ArrowRight',
+        key: 'ArrowDown',
         path: '/owls-lemmings-snow',
         x: 15,
         y: 55
     },
     {
         title: 'Irruptions ', // 2
-        key: 'ArrowDown',
+        key: 'ArrowLeft',
         path: '/irruptions',
         x: 5,
         y: 35
     },
     {
         title: 'Population Decline',
-        key: 'ArrowLeft',
+        key: 'KeyA',
         path: '/population-decline',
         x: 25, // 30, 20
         y: 30
     },
     {
         title: 'Habitat',
-        key: 'KeyA',
+        key: 'KeyW',
         path: '/habitat',
         x: 85,
         y: 50
     },
     {
         title: 'Territory',
-        key: 'KeyW',
+        key: 'ArrowRight',
         path: '/territory',
         x: 60,
         y: 70
@@ -100,18 +100,31 @@ export default function Layout({ children, location }) {
 
     const [withMap, setWithMap] = useState(false);
 
+    const [currKey, setCurrKey] = useState(null);
+
     useEffect(() => {
         setWithMap(queryString.parse(location.search).withmap === 'true')
     }, []);
 
 
     useEffect(() => {
+
         window.addEventListener('keydown', (e) => {
-            const dataForKeyPress = pages.find(d => d.key === e.code);
-            console.log(e.code)
-            return dataForKeyPress && navigate(dataForKeyPress.path);
+            setCurrKey(e.code)
         })
     }, []);
+
+    useEffect(() => {
+        console.log({ currKey })
+        const dataForKeyPress = pages.find(d => d.key === currKey);
+        dataForKeyPress && navigate(dataForKeyPress.path);
+    }, [currKey])
+
+
+    useEffect(() => {
+        let goHomeTimer = setTimeout(() => navigate("/"), 15000)
+        return () => clearTimeout(goHomeTimer)
+    }, [location.pathname])
 
 
     const [currPage, setCurrPage] = useState(null);
